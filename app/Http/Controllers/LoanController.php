@@ -598,7 +598,7 @@ class LoanController extends Controller
         try {
             $ok = Loan::with(['people'])
                 ->where('id', $loan)->first();
-            Http::get('https://api.whatsapp.capresi.net/?number=591'.$ok->people->cell_phone.'&message=Hola *'.$ok->people->first_name.' '.$ok->people->last_name1.' '.$ok->people->last_name2.'*.%0A%0A*SU SOLICITUD DE PRESTAMO HA SIDO APROBADA EXITOSAMENTE*%0A%0APase por favor por las oficinas para entregarle su solicitud de prestamos%0A%0AGracias🤝');
+            // Http::get('https://api.whatsapp.capresi.net/?number=591'.$ok->people->cell_phone.'&message=Hola *'.$ok->people->first_name.' '.$ok->people->last_name1.' '.$ok->people->last_name2.'*.%0A%0A*SU SOLICITUD DE PRESTAMO HA SIDO APROBADA EXITOSAMENTE*%0A%0APase por favor por las oficinas para entregarle su solicitud de prestamos%0A%0AGracias🤝');
             
             // return $loan;
             Loan::where('id', $loan)->update([
@@ -936,27 +936,27 @@ class LoanController extends Controller
                 $cadena=$cadena.($item->late==1?' SI':' NO').'            '.Carbon::parse($item->date)->format('d/m/Y').'         '.$item->amount.($i!=$cant?'%0A':'');
                 $i++;
             }
-            Http::get('https://api.whatsapp.capresi.net/?number=591'.$loan->people->cell_phone.'&message=
-        *COMPROBANTE DE PAGO*
+//             Http::get('https://api.whatsapp.capresi.net/?number=591'.$loan->people->cell_phone.'&message=
+//         *COMPROBANTE DE PAGO*
 
-CODIGO: '.$loan->code.'
-FECHA: '.Carbon::parse($transaction->created_at)->format('d/m/Y H:i:s').'
-BENEFICIARIO: '.$loan->people->last_name1.' '.$loan->people->last_name2.' '.$loan->people->first_name.'
-CI: '.$loan->people->ci.'
+// CODIGO: '.$loan->code.'
+// FECHA: '.Carbon::parse($transaction->created_at)->format('d/m/Y H:i:s').'
+// BENEFICIARIO: '.$loan->people->last_name1.' '.$loan->people->last_name2.' '.$loan->people->first_name.'
+// CI: '.$loan->people->ci.'
 
-              *DETALLE DEL PAGO*
-*ATRASO* | *DIAS PAGADO* | *TOTAL*
-___________________________________%0A'.
-    $cadena.'
-___________________________________
-TOTAL (BS)                           | '.number_format($request->amount,2).'
+//               *DETALLE DEL PAGO*
+// *ATRASO* | *DIAS PAGADO* | *TOTAL*
+// ___________________________________%0A'.
+//     $cadena.'
+// ___________________________________
+// TOTAL (BS)                           | '.number_format($request->amount,2).'
             
-                *ATENDIDO POR*
-'.strtoupper($loanDayAgent[0]->agentType).':        '.strtoupper($loanDayAgent[0]->name).'
-COD TRANS:      '.$transaction->transaction.'
+//                 *ATENDIDO POR*
+// '.strtoupper($loanDayAgent[0]->agentType).':        '.strtoupper($loanDayAgent[0]->name).'
+// COD TRANS:      '.$transaction->transaction.'
 
             
-LOANSAPP V1');
+// LOANSAPP V1');
 
             // return 1;
             DB::commit();
